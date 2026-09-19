@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt  # pyright: ignore[reportMissingModuleSource]
 import datetime as dt
-import calculate as c
 
 def plot_graph(data, median):
 

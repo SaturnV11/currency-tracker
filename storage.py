@@ -2,8 +2,8 @@ import csv
 
 fieldnames = ["date", "base", "quote", "rate"]
 
-def write_data(data: list[dict]) -> None:
-    with open(file= 'new_file.csv', mode= 'w', newline= '') as csvfile:
+def write_data(data: list[dict], filepath: str = 'new_file.csv') -> None:
+    with open(file=filepath, mode='w', newline='') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames= fieldnames)
         writer.writeheader()
         writer.writerows(data)

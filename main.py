@@ -20,11 +20,11 @@
 
     API: 
 """
-from get_parameters import get_currency, get_date_range
-from build_request import build_request, fetch_data
-from csv_data import write_data, read_data
-from calculate import calc_percentage_change, calc_median
-from graph_plot import plot_graph
+from cli_input import get_currency, get_date_range
+from api_client import build_request, fetch_data
+from storage import write_data, read_data
+from analysis import calc_percentage_change, calc_median
+from chart import plot_graph
 
 def main():
     url, params = build_request(*get_currency(), *get_date_range())
