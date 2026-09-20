@@ -15,19 +15,29 @@
     │
     └── gerar_grafico() __TODO__
 
-    ** implementar argparse
-    # FOR ARGUMENT PARSING: python main.py --base USD --quote BRL --start 2025-01-01 --end 2025-01-31 --output rates.csv
 
-    API: 
+-----> FOR ARGUMENT PARSING: python main.py --base USD --quote BRL --start 2025-01-01 --end 2025-01-31
+
+                        ┌─ argparse
+                        │
+        main → resolver inputs → build_request → fetch → [...]
+                        │
+                        └─ input interativo
 """
 from cli_input import get_currency, get_date_range
 from api_client import build_request, fetch_data
 from storage import write_data, read_data
 from analysis import calc_percentage_change, calc_median
 from chart import plot_graph
+from argpar import parse_arguments
 
 def main():
-    url, params = build_request(*get_currency(), *get_date_range())
+    args = parse_arguments()
+
+    base, quote = get_currency(base=args.base, quote=args.quote)
+    start_date, end_date = get_date_range(start_date=args.start, end_date=args.end)   
+
+    url, params = build_request(base, quote, start_date, end_date)
 
     data = fetch_data(url, params)
 
