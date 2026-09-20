@@ -1,6 +1,6 @@
 import argparse
 
-parser = argparse.ArgumentParser(description= "Bla bla bla")
+parser = argparse.ArgumentParser(description= "Check historical quotation of coins and plots its chart")
 
 parser.add_argument("-b", "--base", 
     metavar="CURRENCY", help="Base currency code (e.g. USD)"

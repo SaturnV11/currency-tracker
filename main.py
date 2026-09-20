@@ -1,28 +1,42 @@
 """
-    main()
-    │
-    ├── recebe moeda e período __check__
-    │
-    ├── buscar_cotacoes() __check__
-    │       └── API: Frankfurter (url= https://api.frankfurter.dev)
-    │
-    ├── salvar_csv() __check__
-    │
-    ├── ler_csv() __check__
-    │
-    ├── calcular_variacao_percentual() __check__
-    ├── calcular_media_periodo() __check__
-    │
-    └── gerar_grafico() __TODO__
+Main application pipeline:
 
+1. Parse optional command-line arguments with argparse.
+2. Resolve currency and date inputs:
+   - Use values provided through the command line when available.
+   - Prompt interactively for any missing values.
+   - Validate all resolved inputs.
+3. Build the API request from the resolved parameters.
+4. Fetch historical exchange-rate data from the API.
+5. Save the retrieved data to a CSV file.
+6. Calculate the percentage change and median exchange rate.
+7. Display the calculated results.
+8. Generate a graph from the retrieved data.
 
------> FOR ARGUMENT PARSING: python main.py --base USD --quote BRL --start 2025-01-01 --end 2025-01-31
+Input flow:
 
-                        ┌─ argparse
-                        │
-        main → resolver inputs → build_request → fetch → [...]
-                        │
-                        └─ input interativo
+    command-line arguments
+            │
+            ├── provided values ──────┐
+            │                          │
+            └── missing values         │
+                    │                  │
+                    ▼                  ▼
+              interactive input ──► input resolution
+                                         │
+                                         ▼
+                                  build API request
+                                         │
+                                         ▼
+                                    fetch data
+                                         │
+                         ┌───────────────┴───────────────┐
+                         ▼                               ▼
+                    save to CSV                    analyze data
+                                                         │
+                                           ┌─────────────┴─────────────┐
+                                           ▼                           ▼
+                                      display results             generate graph
 """
 from cli_input import get_currency, get_date_range
 from api_client import build_request, fetch_data
